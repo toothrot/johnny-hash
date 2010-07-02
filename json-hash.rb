@@ -2,8 +2,7 @@ class Hash
   def dottable!
     class << self
       def method_missing(sym, *args, &block)
-        result = fetch(sym.to_s) { fetch(sym) }
-        if result.respond_to?(:dottable!) then result.dottable! else result end
+        convert_result(fetch(sym) { fetch(sym.to_s) })
       rescue IndexError
         super
       end
@@ -11,7 +10,11 @@ class Hash
       alias_method :regular_reader, :[] unless method_defined?(:regular_reader)
 
       def [](key)
-        result = regular_reader(key)
+        convert_result(regular_reader(key))
+      end
+
+    private
+      def convert_result(result)
         if result.respond_to?(:dottable!) then result.dottable! else result end
       end
     end
