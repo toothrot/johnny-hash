@@ -9,6 +9,10 @@ context "Jsony-Hash" do
     {:a => 'foo'}.jsonify!.b
   end.raises NoMethodError
 
+  asserts "Optionally returns nil instead of raising on missing elements" do
+    {:a => 'foo'}.jsonify!(false).b
+  end.equals nil
+
   context "an interesting hash" do
     setup do
       {:a => {'b' => [1, {:c => :d}]}}.jsonify!
@@ -24,5 +28,10 @@ context "Jsony-Hash" do
     asserts "nests jsony-ness through array-style lookup" do
       topic.a.b[1].c
     end.equals :d
+
+    asserts "nests not raising on missing through array-style lookup" do
+      topic.jsonify!(false).a.b[1].z
+    end.equals nil
   end
+
 end
