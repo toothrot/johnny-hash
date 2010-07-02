@@ -27,15 +27,3 @@ class Array
     each {|element| if element.respond_to?(:dottable!) then element.dottable! else element end }
   end
 end
-
-hsh = {:a => {'b' => [1, {:c => :d}]}}.dottable!
-
-hsh.a.b
-
-hsh[:a]['b']
-
-hsh.a.b[1].c
-
-json_object = {"a" => {"b" => {"c" => ["foo", {"d" => "bar"}]}}}.dottable!
-
-json_object.a['b'].c[1].d
