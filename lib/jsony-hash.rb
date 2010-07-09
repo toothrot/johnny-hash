@@ -1,26 +1,27 @@
 module JsonyHash
   module Hash
     def jsonify!(raise_on_missing = true)
-      class << self
-        def method_missing(sym, *args, &block)
-          jsonify_result(fetch(sym) { fetch(sym.to_s) })
-        rescue IndexError
-          super if @raise_on_missing
-        end
+      @raise_on_missing = raise_on_missing
 
-        alias_method :non_dottable_reader, :[] unless method_defined?(:non_dottable_reader)
+      unless respond_to?(:non_dottable_reader)
+        class << self
+          alias_method :non_dottable_reader, :[]
 
-        def [](key)
-          jsonify_result(non_dottable_reader(key))
-        end
+          def [](key)
+            jsonify_result(non_dottable_reader(key))
+          end
 
-      private
-        def jsonify_result(result)
-          if result.respond_to?(:jsonify!) then result.jsonify!(@raise_on_missing) else result end
+          def method_missing(sym, *args, &block)
+            self[sym] || self[sym.to_s] || (super if @raise_on_missing)
+          end
+
+        private
+          def jsonify_result(result)
+            if result.respond_to?(:jsonify!) then result.jsonify!(@raise_on_missing) else result end
+          end
         end
       end
 
-      @raise_on_missing = raise_on_missing
       self
     end
   end

@@ -32,6 +32,10 @@ context "Jsony-Hash" do
     asserts "nests not raising on missing through array-style lookup" do
       topic.jsonify!(false).a.b[1].z
     end.equals nil
+
+    asserts "jsonify! can be called multiple times" do
+      topic.jsonify!.jsonify!.a.b
+    end.equals [1, {:c=>:d}]
   end
 
 end
