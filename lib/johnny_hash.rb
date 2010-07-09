@@ -8,7 +8,7 @@ module JsonyHash
           alias_method :non_dottable_reader, :[]
 
           def [](key)
-            jsonify_result(non_dottable_reader(key))
+            json_result!(non_dottable_reader(key))
           end
 
           def method_missing(sym, *args, &block)

@@ -1,4 +1,4 @@
 require 'rubygems'
 require 'riot'
 
-require 'jsony-hash'
+require 'johnny_hash'
