@@ -1,4 +1,8 @@
 module JohnnyHash
+  def self.walk_the_line!(value, raise_on_missing)
+    if value.respond_to?(:json!) then value.json!(raise_on_missing) else value end
+  end
+
   module Hash
     def json!(raise_on_missing = true)
       @raise_on_missing = raise_on_missing
@@ -8,16 +12,11 @@ module JohnnyHash
           alias_method :non_json_reader, :[]
 
           def [](key)
-            json_result!(non_json_reader(key))
+            JohnnyHash.walk_the_line!(non_json_reader(key), @raise_on_missing)
           end
 
           def method_missing(sym, *args, &block)
             self[sym] || self[sym.to_s] || (super if @raise_on_missing)
-          end
-
-        private
-          def json_result!(result)
-            if result.respond_to?(:json!) then result.json!(@raise_on_missing) else result end
           end
         end
       end
@@ -28,7 +27,7 @@ module JohnnyHash
 
   module Array
     def json!(raise_on_missing = true)
-      each {|element| if element.respond_to?(:json!) then element.json!(raise_on_missing) else element end }
+      each {|element| JohnnyHash.walk_the_line!(element, raise_on_missing) }
     end
   end
 end
