@@ -1,6 +1,6 @@
 module JsonyHash
   module Hash
-    def jsonify!(raise_on_missing = true)
+    def json!(raise_on_missing = true)
       @raise_on_missing = raise_on_missing
 
       unless respond_to?(:non_dottable_reader)
@@ -16,8 +16,8 @@ module JsonyHash
           end
 
         private
-          def jsonify_result(result)
-            if result.respond_to?(:jsonify!) then result.jsonify!(@raise_on_missing) else result end
+          def json_result!(result)
+            if result.respond_to?(:json!) then result.json!(@raise_on_missing) else result end
           end
         end
       end
@@ -27,8 +27,8 @@ module JsonyHash
   end
 
   module Array
-    def jsonify!(raise_on_missing = true)
-      each {|element| if element.respond_to?(:jsonify!) then element.jsonify!(raise_on_missing) else element end }
+    def json!(raise_on_missing = true)
+      each {|element| if element.respond_to?(:json!) then element.json!(raise_on_missing) else element end }
     end
   end
 end
