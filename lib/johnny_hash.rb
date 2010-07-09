@@ -1,14 +1,14 @@
-module JsonyHash
+module JohnnyHash
   module Hash
     def json!(raise_on_missing = true)
       @raise_on_missing = raise_on_missing
 
-      unless respond_to?(:non_dottable_reader)
+      unless respond_to?(:non_json_reader)
         class << self
-          alias_method :non_dottable_reader, :[]
+          alias_method :non_json_reader, :[]
 
           def [](key)
-            json_result!(non_dottable_reader(key))
+            json_result!(non_json_reader(key))
           end
 
           def method_missing(sym, *args, &block)
@@ -33,5 +33,5 @@ module JsonyHash
   end
 end
 
-Hash.send(:include, JsonyHash::Hash)
-Array.send(:include, JsonyHash::Array)
+Hash.send(:include, JohnnyHash::Hash)
+Array.send(:include, JohnnyHash::Array)

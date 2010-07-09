@@ -1,6 +1,6 @@
 require 'teststrap'
 
-context "Jsony-Hash" do
+context "JohnnyHash" do
   asserts "Allows dot access for existing elements" do
     {:a => 'foo'}.json!.a
   end.equals 'foo'
@@ -17,6 +17,7 @@ context "Jsony-Hash" do
     setup do
       {:a => {'b' => [1, {:c => :d}]}}.json!
     end
+
     asserts "nests jsony-ness" do
       topic.a.b
     end.equals [1, {:c=>:d}]
