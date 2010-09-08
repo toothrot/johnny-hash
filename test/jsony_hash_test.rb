@@ -20,11 +20,11 @@ context "JohnnyHash" do
 
     asserts "nests jsony-ness" do
       topic.a.b
-    end.equals [1, {:c=>:d}]
+    end.equals [1, {:c => :d}]
 
     asserts "nests jsony-ness on normal lookups too" do
       topic[:a].b
-    end.equals [1, {:c=>:d}]
+    end.equals [1, {:c => :d}]
 
     asserts "nests jsony-ness through array-style lookup" do
       topic.a.b[1].c
@@ -36,7 +36,7 @@ context "JohnnyHash" do
 
     asserts "json! can be called multiple times" do
       topic.json!.json!.a.b
-    end.equals [1, {:c=>:d}]
+    end.equals [1, {:c => :d}]
   end
 
 end
