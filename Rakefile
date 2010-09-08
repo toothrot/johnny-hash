@@ -26,3 +26,19 @@ Rake::Task["test"].comment = "Run the tests!"
 
 task :default => :test
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "johnny-hash"
+    gem.summary = %Q{Adds json-object-style Hash accessors in Ruby for fun.}
+    gem.description = %Q{TODO: longer description of your gem}
+    gem.email = "scissorjammer@gmail.com"
+    gem.homepage = "http://github.com/toothrot/johnny-hash"
+    gem.authors = ["toothrot", "jaknowlden"]
+    gem.add_development_dependency "riot", ">= 0"
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
