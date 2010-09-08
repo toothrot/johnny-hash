@@ -31,7 +31,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "johnny-hash"
     gem.summary = %Q{Adds json-object-style Hash accessors in Ruby for fun.}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{Read the awful readme for more info.}
     gem.email = "scissorjammer@gmail.com"
     gem.homepage = "http://github.com/toothrot/johnny-hash"
     gem.authors = ["toothrot", "jaknowlden"]
