@@ -1,3 +1,6 @@
+This is a terrible idea
+-----------------------
+
 Jsony-Hash
 ==========
 
